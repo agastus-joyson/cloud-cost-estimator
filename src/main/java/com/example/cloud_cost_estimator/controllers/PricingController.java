@@ -15,8 +15,8 @@ public class PricingController {
     private PricingService pricingService;
 
     @GetMapping("/resources")
-    public List<String> getAllResourceTypes() {
-        return pricingService.getAllResourceTypes();
+    public List<String> getResourceTypesByRegion(@RequestParam String region) {
+        return pricingService.getResourceTypesByRegion(region);
     }
 
     @GetMapping("/regions")
