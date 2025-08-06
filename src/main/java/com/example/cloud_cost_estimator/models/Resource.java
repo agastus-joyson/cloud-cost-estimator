@@ -6,17 +6,15 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "pricing_data")
+@Table(name = "resource")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class PricingData {
+public class Resource {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "resource_id", nullable = false)
-    private Resource resource;
-    private String region;
-    private Float unitCost;
+
+    private String type;
+    private String name;
 }

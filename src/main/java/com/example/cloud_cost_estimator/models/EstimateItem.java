@@ -14,10 +14,16 @@ public class EstimateItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "estimate_id", nullable = false)
     private EstimateRequest estimateRequest;
-    private String resourceType;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "resource_id", nullable = false)
+    private Resource resource;
+
+    private String region;
     private Integer units;
     private Float unitCost;
     private Float totalCost;

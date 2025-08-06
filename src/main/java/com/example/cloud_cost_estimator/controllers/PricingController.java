@@ -14,13 +14,13 @@ public class PricingController {
     @Autowired
     private PricingService pricingService;
 
-    @GetMapping("/resources")
-    public List<String> getResourceTypesByRegion(@RequestParam String region) {
-        return pricingService.getResourceTypesByRegion(region);
+    @GetMapping("/names")
+    public List<String> getResourceNames(@RequestParam String type) {
+        return pricingService.getResourceNamesByType(type);
     }
 
     @GetMapping("/regions")
-    public List<String> getAllRegions() {
-        return pricingService.getAllRegions();
+    public List<String> getRegionsForResource(@RequestParam String type, @RequestParam String name) {
+        return pricingService.getRegionsByResource(type, name);
     }
 }

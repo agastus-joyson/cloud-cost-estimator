@@ -9,11 +9,12 @@ import java.util.Optional;
 
 public interface PricingDataRepository extends JpaRepository<PricingData, Long> {
 
-    @Query("SELECT DISTINCT p.resourceType FROM PricingData p WHERE p.region = :region")
-    List<String> findDistinctResourceTypesByRegion(String region);
+    @Query("SELECT DISTINCT p.resource.name FROM PricingData p WHERE p.resource.type = :type")
+    List<String> findDistinctResourceNamesByType(String type);
 
-    @Query("SELECT DISTINCT p.region FROM PricingData p")
-    List<String> findDistinctRegions();
+    @Query("SELECT DISTINCT p.region FROM PricingData p WHERE p.resource.type = :type AND p.resource.name = :name")
+    List<String> findDistinctRegionsByTypeAndName(String type, String name);
 
-    Optional<PricingData> findByResourceTypeAndRegion(String resourceType, String region);
+    @Query("SELECT p FROM PricingData p WHERE p.resource.type = :type AND p.resource.name = :name AND p.region = :region")
+    Optional<PricingData> findByResourceDetails(String type, String name, String region);
 }

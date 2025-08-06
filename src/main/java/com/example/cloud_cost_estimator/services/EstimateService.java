@@ -31,23 +31,26 @@ public class EstimateService {
         List<EstimateItem> estimateItems = new ArrayList<>();
         float totalCost = 0f;
 
-        for (EstimateRequestDTO.ResourceInput input : requestDTO.getResources()) {
+        for (EstimateRequestDTO.ResourceEstimateInput input : requestDTO.getResources()) {
             PricingData pricingData = pricingDataRepository
-                    .findByResourceTypeAndRegion(input.getType(), requestDTO.getRegion())
-                    .orElseThrow(() -> new RuntimeException("Pricing not found for resource: "
-                            + input.getType() + " in region: " + requestDTO.getRegion()));
+                    .findByResourceDetails(input.getType(), input.getName(), input.getRegion())
+                    .orElseThrow(() -> new RuntimeException("Pricing not found for " +
+                            input.getType() + " - " + input.getName() + " in region: " + input.getRegion()));
 
             float itemCost = pricingData.getUnitCost() * input.getUnits();
 
             breakdownList.add(new EstimateResponseDTO.ResourceBreakdown(
                     input.getType(),
+                    input.getName(),
+                    input.getRegion(),
                     input.getUnits(),
                     pricingData.getUnitCost(),
                     itemCost
             ));
 
             EstimateItem item = new EstimateItem();
-            item.setResourceType(input.getType());
+            item.setResource(pricingData.getResource());
+            item.setRegion(input.getRegion());
             item.setUnits(input.getUnits());
             item.setUnitCost(pricingData.getUnitCost());
             item.setTotalCost(itemCost);
@@ -57,7 +60,6 @@ public class EstimateService {
         }
 
         EstimateRequest estimateRequest = new EstimateRequest();
-        estimateRequest.setRegion(requestDTO.getRegion());
         estimateRequest.setTimestamp(LocalDateTime.now());
         estimateRequest.setTotalCost(totalCost);
         for (EstimateItem item : estimateItems) {
@@ -73,7 +75,6 @@ public class EstimateService {
         return estimateRequestRepository.findAllByOrderByTimestampDesc().stream()
                 .map(e -> new EstimateSummaryDTO(
                         e.getId(),
-                        e.getRegion(),
                         e.getTotalCost(),
                         e.getTimestamp()
                 ))

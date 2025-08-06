@@ -17,6 +17,8 @@ public class EstimateResponseDTO {
     @AllArgsConstructor
     public static class ResourceBreakdown {
         private String type;
+        private String name;
+        private String region;
         private Integer units;
         private Float unitCost;
         private Float cost;

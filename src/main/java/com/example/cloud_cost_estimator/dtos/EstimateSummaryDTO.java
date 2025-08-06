@@ -9,7 +9,6 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class EstimateSummaryDTO {
     private Long id;
-    private String region;
     private Float totalCost;
     private LocalDateTime timestamp;
 }

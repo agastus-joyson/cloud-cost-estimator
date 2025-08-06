@@ -10,12 +10,13 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class EstimateRequestDTO {
-    private String region;
-    private List<ResourceInput> resources;
+    private List<ResourceEstimateInput> resources;
 
     @Data
-    public static class ResourceInput {
+    public static class ResourceEstimateInput {
         private String type;
+        private String name;
+        private String region;
         private Integer units;
     }
 }

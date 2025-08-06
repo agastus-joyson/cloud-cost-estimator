@@ -12,11 +12,11 @@ public class PricingService {
     @Autowired
     private PricingDataRepository pricingDataRepository;
 
-    public List<String> getResourceTypesByRegion(String region) {
-        return pricingDataRepository.findDistinctResourceTypesByRegion(region);
+    public List<String> getResourceNamesByType(String type) {
+        return pricingDataRepository.findDistinctResourceNamesByType(type);
     }
 
-    public List<String> getAllRegions() {
-        return pricingDataRepository.findDistinctRegions();
+    public List<String> getRegionsByResource(String type, String name) {
+        return pricingDataRepository.findDistinctRegionsByTypeAndName(type, name);
     }
 }

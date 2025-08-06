@@ -18,7 +18,6 @@ public class EstimateRequest {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private LocalDateTime timestamp;
-    private String region;
     private Float totalCost;
     @OneToMany(mappedBy = "estimateRequest", cascade = CascadeType.ALL)
     private List<EstimateItem> items;
