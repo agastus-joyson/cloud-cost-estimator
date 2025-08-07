@@ -1,5 +1,6 @@
 package com.example.cloud_cost_estimator.controllers;
 
+import com.example.cloud_cost_estimator.dtos.EstimateDetailsDTO;
 import com.example.cloud_cost_estimator.dtos.EstimateRequestDTO;
 import com.example.cloud_cost_estimator.dtos.EstimateResponseDTO;
 import com.example.cloud_cost_estimator.dtos.EstimateSummaryDTO;
@@ -26,4 +27,10 @@ public class EstimateController {
     public List<EstimateSummaryDTO> getEstimateHistory() {
         return estimateService.getEstimateHistory();
     }
+
+    @GetMapping("/details")
+    public EstimateDetailsDTO getEstimateDetails(@RequestParam Long id) {
+        return estimateService.getEstimateDetails(id);
+    }
+
 }

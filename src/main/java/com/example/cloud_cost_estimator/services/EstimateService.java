@@ -1,5 +1,6 @@
 package com.example.cloud_cost_estimator.services;
 
+import com.example.cloud_cost_estimator.dtos.EstimateDetailsDTO;
 import com.example.cloud_cost_estimator.dtos.EstimateRequestDTO;
 import com.example.cloud_cost_estimator.dtos.EstimateResponseDTO;
 import com.example.cloud_cost_estimator.dtos.EstimateSummaryDTO;
@@ -80,4 +81,27 @@ public class EstimateService {
                 ))
                 .toList();
     }
+
+    public EstimateDetailsDTO getEstimateDetails(Long estimateId) {
+        EstimateRequest estimateRequest = estimateRequestRepository.findById(estimateId)
+                .orElseThrow(() -> new RuntimeException("Estimate request not found with ID: " + estimateId));
+
+        List<EstimateDetailsDTO.ItemDetail> itemDetails = estimateRequest.getItems().stream().map(item ->
+                new EstimateDetailsDTO.ItemDetail(
+                        item.getResource().getType(),
+                        item.getResource().getName(),
+                        item.getRegion(),
+                        item.getUnits(),
+                        item.getUnitCost(),
+                        item.getTotalCost()
+                )).toList();
+
+        return new EstimateDetailsDTO(
+                estimateRequest.getId(),
+                estimateRequest.getTimestamp(),
+                estimateRequest.getTotalCost(),
+                itemDetails
+        );
+    }
+
 }
