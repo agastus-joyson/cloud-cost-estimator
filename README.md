@@ -1,7 +1,6 @@
 # Cloud Cost Estimator
 
-A full-stack web application to **estimate cloud resource costs** based on selected **resource types**, **resource names
-**, **regions**, and **usage units**.  
+A full-stack web application to **estimate cloud resource costs** based on selected **resource types**, **resource names**, **regions**, and **usage units**.  
 Built with **Spring Boot** (Java) and **React + Tailwind CSS**.
 
 ---
@@ -47,7 +46,7 @@ The backend stores resource pricing in a database and calculates costs dynamical
 ### 1️⃣ **Clone the repository**
 
 ```bash
-git clone https://github.com/your-username/cloud-cost-estimator.git
+git clone https://github.com/agastus-joyson/cloud-cost-estimator.git
 cd cloud-cost-estimator
 ```
 
